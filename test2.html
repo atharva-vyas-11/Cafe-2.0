@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bean There Café</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Replace existing viewport tag with -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        :root {
+            --primary-brown: #6F4E37;
+            --cream: #F4F1EA;
+            --accent-gold: #C4A484;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            padding-top: 80px;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background: rgba(244, 241, 234, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-section {
+            height: 50vh;
+            background: linear-gradient(rgba(111, 78, 55, 0.5), rgba(111, 78, 55, 0.5)),
+                        url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-modal .modal-content {
+	    max-height: 90vh;
+    	    overflow-y: auto;
+            border-radius: 15px;
+            background: #fff5e6;
+        }
+
+        .flipbook-page {
+            display: none;
+            padding: 2rem;
+            min-height: 60vh;
+        }
+
+        .flipbook-page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px dashed var(--primary-brown);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+.btn-custom {
+    padding: 10px 25px; /* Larger mobile buttons */
+    font-size: 1rem;
+}
+
+        .btn-custom {
+            background: var(--primary-brown);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background: var(--accent-gold);
+            transform: scale(1.05);
+        }
+	.footer {
+            background-color: var(--primary-brown);
+            color: var(--cream);
+            padding: 1rem 0;
+            margin-top: auto;
+        }
+
+        .success-modal .modal-content {
+            border-radius: 15px;
+            border: none;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 1rem;
+        }
+.form-control {
+    font-size: 1rem;
+    padding: 0.75rem; /* Larger tap target */
+}
+/* Mobile-specific adjustments */
+@media (max-width: 767px) {
+    .navbar-brand img {
+        height: 40px;
+    }
+    
+    .display-4 {
+        font-size: 2rem;
+    }
+
+    .about-section img {
+        margin-top: 1.5rem;
+    }
+
+    .contact-section .form-control {
+        font-size: 16px;
+    }
+
+    .flipbook-page {
+        padding: 1rem 0.5rem;
+    }
+
+    .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu-item span:last-child {
+        margin-top: 0.5rem;
+        color: var(--primary-brown);
+    }
+}
+
+/* Tablet/Desktop adjustments */
+@media (min-width: 768px) {
+    .hero-section {
+        height: 70vh;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="logobean.png" alt="Bean There Cafe Logo" style="height:50px; margin-right:10px;">
+            Bean There Cafe
+        </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link menu-link" href="#">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="text-center text-white">
+            <h1 class="display-4 mb-4">Experience Artisanal Coffee</h1>
+            <button class="btn btn-custom menu-link">Explore Our Menu</button>
+        </div>
+    </section>
+
+<!-- About Section -->
+<section id="about" class="about-section py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Text Column with Background -->
+            <div class="col-md-6 p-4 rounded-3" 
+                 style="background-color: var(--cream); 
+                        border: 2px solid var(--accent-gold);
+                        box-shadow: 0 4px 12px rgba(111, 78, 55, 0.1);">
+                <h2 class="mb-4" style="color: var(--primary-brown);">Our Story</h2>
+                <p class="lead" style="color: var(--primary-brown);">
+                    At Bean There Cafe, every cup tells a story — one of craftsmanship, passion, and the simple joy of a perfectly brewed coffee. Nestled in the heart of the community, we created Bean There to be more than just a cafe; it’s a warm, inviting space where every visit feels like coming home.
+                </p>
+            </div>
+
+            <!-- Image Column -->
+            <div class="col-md-6 mt-4 mt-md-0">
+                <img src="cafeinterior.png" 
+                     alt="Cafe Interior" 
+                     class="img-fluid rounded shadow-lg"
+                     style="border: 3px solid var(--accent-gold);">
+
+            </div>
+        </div>
+    </div>
+</section>
+</section>
+<!-- Contact Section -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="mb-4">Contact Us</h2>
+                <form id="contactForm">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" placeholder="Email Address" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-custom w-100">Send Message</button>
+                </form>
+
+                <!-- Added contact information below form -->
+                <div class="mt-5 text-center">
+                    <h4 class="mb-3">Visit Us</h4>
+                    <p class="mb-2">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        19th Main Road, HSR Layout Sector 2<br>
+                        Bangalore, Karnataka
+                    </p>
+                    <p class="mb-0">
+                        <i class="fas fa-phone me-2"></i>
+                        +91 88614 86665
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Menu Modal -->
+    <div class="modal fade" id="menuModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Our Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="flipbook-page active" data-page="1">
+                        <h4 class="mb-4">☕ Hot Beverages</h4>
+                        <div class="menu-item"><span>Classic Latte</span><span>₹150</span></div>
+                        <div class="menu-item"><span>Cappuccino</span><span>₹200</span></div>
+                        <div class="menu-item"><span>Caffe Americano</span><span>₹250</span></div>
+                        <div class="menu-item"><span>Caffe Mocha</span><span>₹300</span></div>
+                        <div class="menu-item"><span>Hot Chocolate</span><span>₹200</span></div>
+                    </div>
+
+                    <div class="flipbook-page" data-page="2">
+                        <h4 class="mb-4">🍹 Cold Beverages</h4>
+                        <div class="menu-item"><span>KitKat Frappuccino</span><span>₹275</span></div>
+                        <div class="menu-item"><span>Caramel Frappuccino</span><span>₹250</span></div>
+                        <div class="menu-item"><span>Cold Coffee</span><span>₹150</span></div>
+                        <div class="menu-item"><span>Mint Berry Cooler</span><span>₹200</span></div>
+                        <div class="menu-item"><span>Kiwi-Berry Cooler</span><span>₹300</span></div>
+                    </div>
+
+                    <div class="flipbook-page" data-page="3">
+                        <h4 class="mb-4">🥪 Quick Bites</h4>
+                        <div class="menu-item"><span>Grilled Cheese Sandwich</span><span>₹200</span></div>
+                        <div class="menu-item"><span>Paneer Tikka Sandwich</span><span>₹300</span></div>
+                        <div class="menu-item"><span>Cinnamon Roll</span><span>₹200</span></div>
+                        <div class="menu-item"><span>Butter Croissant</span><span>₹200</span></div>
+                        <div class="menu-item"><span>Margherita Pizza</span><span>₹400</span></div>
+                    </div>
+
+                    <div class="flipbook-page" data-page="4">
+                        <h4 class="mb-4">🍰 Desserts</h4>
+                        <div class="menu-item"><span>Mini Cupcakes</span><span>₹100</span></div>
+                        <div class="menu-item"><span>Skillet Cookie</span><span>₹150</span></div>
+                        <div class="menu-item"><span>Ice Cream</span><span>₹200</span></div>
+                        <div class="menu-item"><span>Macarons</span><span>₹100</span></div>
+                        <div class="menu-item"><span>Crème Brûlée</span><span>₹300</span></div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button class="btn btn-custom" onclick="changePage(-1)">← Previous</button>
+                        <span class="text-muted">Page <span id="currentPage">1</span>/4</span>
+                        <button class="btn btn-custom" onclick="changePage(1)">Next →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<footer class="footer mt-5 py-3" style="background-color: var(--primary-brown); color: var(--cream);">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2023 Bean There Cafe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div class="modal fade success-modal" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center py-5">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="mt-3">Message Sent Successfully!</h3>
+                    <p class="text-muted">We'll get back to you soon.</p>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentPage = 1;
+            const totalPages = 4;
+
+            // Make changePage function globally available
+            window.changePage = function(direction) {
+                const newPage = currentPage + direction;
+                if (newPage < 1 || newPage > totalPages) return;
+
+                document.querySelector(`[data-page="${currentPage}"]`).classList.remove('active');
+                document.querySelector(`[data-page="${newPage}"]`).classList.add('active');
+                currentPage = newPage;
+                document.getElementById('currentPage').textContent = currentPage;
+            };
+
+            // Menu Button Handler
+            document.querySelectorAll('.menu-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const modal = new bootstrap.Modal(document.getElementById('menuModal'));
+                    
+                    // Reset to first page when opening
+                    modal.show();
+                    document.querySelectorAll('.flipbook-page').forEach(page => {
+                        page.classList.remove('active');
+                    });
+                    document.querySelector('[data-page="1"]').classList.add('active');
+                    currentPage = 1;
+                    document.getElementById('currentPage').textContent = 1;
+                });
+            });
+
+            // Contact Form Handler
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                new bootstrap.Modal(document.getElementById('successModal')).show();
+                this.reset();
+            });
+
+            // Smooth Scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if(this.hash && this.hash !== "#") {
+                        e.preventDefault();
+                        document.querySelector(this.hash).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+// Add touch swipe support for menu pages
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.querySelector('.modal-content').addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+document.querySelector('.modal-content').addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 50) {
+        changePage(1);
+    }
+    if (touchEndX - touchStartX > 50) {
+        changePage(-1);
+    }
+});
+    </script>
+</body>
+</html>
